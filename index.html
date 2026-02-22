@@ -799,20 +799,30 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: rgba(191,78,48,0.18);
-      color: #e8856a;
       font-size: 0.8rem;
       font-weight: 500;
       padding: 0.3rem 0.75rem;
       border-radius: 999px;
       margin-top: 1.5rem;
+      transition: background 0.4s, color 0.4s;
     }
     .hours-badge::before {
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: #e8856a;
+      flex-shrink: 0;
+      transition: background 0.4s;
     }
+    .hours-badge.open {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    .hours-badge.open::before { background: #34d399; }
+    .hours-badge.closed {
+      background: rgba(100, 100, 120, 0.2);
+      color: rgba(255,255,255,0.4);
+    }
+    .hours-badge.closed::before { background: rgba(255,255,255,0.3); }
 
     /* ─────────── RESERVATION ─────────── */
     .reservation-section { background: var(--gray-50); }
@@ -1361,7 +1371,7 @@
               <span class="hours-val">동일 운영</span>
             </div>
           </div>
-          <span class="hours-badge">현재 정상 영업 중</span>
+          <span class="hours-badge" id="hoursBadge"></span>
           <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-top:1.5rem;line-height:1.65;">
             명절 등 특수 상황에 의한 임시 휴무 시<br>사전 공지를 통해 안내드립니다.
           </p>
@@ -1577,6 +1587,21 @@
     } else {
       revealEls.forEach(function (el) { el.classList.add('visible'); });
     }
+
+    /* ── 영업시간 배지 (한국 시간 기준 10:00~21:00) ── */
+    function updateHoursBadge() {
+      var badge = document.getElementById('hoursBadge');
+      if (!badge) return;
+      var now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      var h = now.getHours();
+      var m = now.getMinutes();
+      var total = h * 60 + m;
+      var isOpen = total >= 600 && total < 1260; /* 10:00 ~ 21:00 */
+      badge.className = 'hours-badge ' + (isOpen ? 'open' : 'closed');
+      badge.textContent = isOpen ? '현재 정상 영업 중' : '현재 영업 종료';
+    }
+    updateHoursBadge();
+    setInterval(updateHoursBadge, 60000); /* 1분마다 갱신 */
 
     /* ── BACK TO TOP ── */
     var backTop = document.getElementById('backTop');
