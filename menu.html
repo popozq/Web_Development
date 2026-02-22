@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 메뉴 | 해담향</title>
+  <meta name="description" content="해담향 전체 메뉴 — 맑은 대구탕, 용대리 황태탕, 황태구이, 메밀 특선">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #000000;
+      --white:   #ffffff;
+      --gray-50: #f5f5f7;
+      --gray-100:#e8e8ed;
+      --gray-200:#d2d2d7;
+      --gray-400:#86868b;
+      --gray-600:#515154;
+      --gray-800:#1d1d1f;
+      --accent:  #bf4e30;
+      --accent-light: rgba(191,78,48,0.12);
+      --gold:    #a07840;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --ease:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      background: var(--white);
+      color: var(--gray-800);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─────────── NAV ─────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--gray-800);
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--gray-600);
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gray-800); }
+    .nav-links a.active { color: var(--gray-800); font-weight: 600; }
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      border: 1px solid rgba(0,0,0,0.2);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      transition: all 0.25s var(--ease);
+    }
+    .nav-cta:hover {
+      background: var(--gray-800);
+      color: var(--white);
+      border-color: var(--gray-800);
+    }
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-burger span {
+      width: 20px; height: 1.5px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    @media (max-width: 800px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+      .nav-links.mobile-open {
+        display: flex;
+        position: fixed;
+        top: 52px; left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 0 1rem;
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .nav-links.mobile-open a {
+        color: var(--gray-800) !important;
+        font-size: 0.95rem;
+        padding: 0.85rem 2rem;
+        border-bottom: 1px solid var(--gray-100);
+        display: block;
+      }
+    }
+
+    /* ─────────── PAGE HEADER ─────────── */
+    .page-header {
+      padding: 6.5rem 2rem 3.5rem;
+      background: var(--gray-800);
+      color: var(--white);
+      text-align: center;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 1.75rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: rgba(255,255,255,0.8); }
+    .back-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.85rem;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .page-header p {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.65rem;
+    }
+
+    /* ─────────── MENU CONTENT ─────────── */
+    .menu-page {
+      padding: 4rem 2rem 7rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 540px) {
+      .menu-page { padding: 2.5rem 1.25rem 5rem; }
+    }
+
+    /* Section title */
+    .msec-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .msec-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ─────────── MENU GRID ─────────── */
+    .mp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    @media (max-width: 900px) { .mp-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .mp-grid { grid-template-columns: 1fr; } }
+
+    /* ─────────── CARD ─────────── */
+    .mp-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+      /* 카드 전체를 flex 컬럼으로 — 같은 행의 카드 높이가 자동으로 맞춰짐 */
+      display: flex;
+      flex-direction: column;
+    }
+    .mp-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .mp-thumb {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--gray-100);
+      flex-shrink: 0; /* 이미지 비율 고정 */
+    }
+    .mp-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s var(--ease);
+    }
+    .mp-card:hover .mp-thumb img { transform: scale(1.06); }
+
+    .mp-body {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1; /* 남은 공간을 바디가 채움 */
+    }
+
+    /* 뱃지: 없어도 높이 고정으로 모든 카드 상단 기준선 통일 */
+    .mp-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.6rem;
+      min-height: 1.55rem;
+    }
+    .mp-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+    }
+    .badge-best    { background: var(--accent-light); color: var(--accent); }
+    .badge-pick    { background: rgba(160,120,64,0.12); color: var(--gold); }
+    .badge-daily   { background: var(--gray-50); color: var(--gray-600); border: 1px solid var(--gray-200); }
+    .badge-season  { background: rgba(3,199,90,0.1); color: #1a7a40; }
+
+    .mp-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    /* 설명 영역이 남은 공간을 채워 가격·노트를 항상 하단에 고정 */
+    .mp-desc {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 0.9rem;
+    }
+    /* 가격과 노트는 항상 카드 하단에 붙음 */
+    .mp-bottom {
+      margin-top: auto;
+    }
+    .mp-price {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 0;
+    }
+    .mp-price sub {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      font-style: normal;
+    }
+    .mp-note {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--gray-400);
+      margin-top: 0.55rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ─────────── NOTICE ─────────── */
+    .menu-notice {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+    }
+    .menu-notice h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      margin-bottom: 0.9rem;
+    }
+    .menu-notice ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .menu-notice li {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--gray-600);
+      padding-left: 0.9rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .menu-notice li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gray-400);
+    }
+
+    /* ─────────── REVEAL ─────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+    [data-reveal="delay1"] { transition-delay: 0.1s; }
+    [data-reveal="delay2"] { transition-delay: 0.2s; }
+    [data-reveal="delay3"] { transition-delay: 0.3s; }
+
+    /* ─────────── FOOTER ─────────── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.5);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+    footer p { font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ─────────── BACK TO TOP ─────────── */
+    #backTop {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s var(--ease);
+    }
+    #backTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    #backTop:hover { background: var(--black); transform: translateY(-2px); }
+    #backTop svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">해담향</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">소개</a></li>
+        <li><a href="menu.html" class="active">메뉴</a></li>
+        <li><a href="index.html#info">위치 &amp; 시간</a></li>
+        <li><a href="index.html#reservation">예약</a></li>
+        <li><a href="index.html#contact">연락처</a></li>
+      </ul>
+      <a href="index.html#reservation" class="nav-cta">예약하기</a>
+      <button class="nav-burger" id="navBurger" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      홈으로 돌아가기
+    </a>
+    <p class="page-eyebrow">Full Menu</p>
+    <h1>전체 메뉴</h1>
+    <p>해담향의 모든 메뉴를 한눈에 확인하세요</p>
+  </div>
+
+  <!-- MENU CONTENT -->
+  <main class="menu-page">
+
+    <!-- 탕 · 구이 -->
+    <p class="msec-title" data-reveal>탕 · 구이</p>
+    <div class="mp-grid">
+
+      <div class="mp-card" data-reveal>
+        <div class="mp-thumb">
+          <img src="IMG/해담향/대구탕.jpeg" alt="맑은 대구탕"
+               onerror="this.src='https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"><span class="mp-badge badge-best">해담향 1등</span></div>
+          <p class="mp-name">맑은 대구탕</p>
+          <p class="mp-desc">푸짐하고 통통한 대구살에 시원한 국물. 해담향 대표 메뉴입니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">15,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">공기밥 포함</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mp-card" data-reveal="delay1">
+        <div class="mp-thumb">
+          <img src="IMG/해담향/황태탕.jpeg" alt="용대리 황태탕"
+               onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"><span class="mp-badge badge-pick">사장님 추천</span></div>
+          <p class="mp-name">용대리 황태탕</p>
+          <p class="mp-desc">황태살 가득한 뽀얀 국물, 해장으로 1등!! 진한 국물이 일품입니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">14,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">공기밥 포함</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mp-card" data-reveal="delay2">
+        <div class="mp-thumb">
+          <img src="IMG/해담향/황태구이.jpeg" alt="용대리 황태구이"
+               onerror="this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"></div>
+          <p class="mp-name">용대리 황태구이</p>
+          <p class="mp-desc">토실토실 황태살에 막걸리가 절로 땡기는 황태구이.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">15,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">공기밥 별도</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 볶음 · 튀김 -->
+    <p class="msec-title" data-reveal>볶음 · 튀김</p>
+    <div class="mp-grid">
+
+      <div class="mp-card" data-reveal>
+        <div class="mp-thumb">
+          <img src="IMG/해담향/제육볶음.jpg" alt="불맛 제육볶음 한판"
+               onerror="this.src='https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"></div>
+          <p class="mp-name">불맛 제육볶음 한판</p>
+          <p class="mp-desc">다들 제육볶음 찾으시네요! 사진보다 푸짐하게 나갑니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">25,000원 <sub>/ 2인기준</sub></p>
+            <p class="mp-note">2인 기준 · 공기밥 포함</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mp-card" data-reveal="delay1">
+        <div class="mp-thumb">
+          <img src="IMG/해담향/메밀 돈까스.jpeg" alt="봉평메밀 수제 돈까스"
+               onerror="this.src='https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"><span class="mp-badge badge-daily">하루 한정</span></div>
+          <p class="mp-name">봉평메밀 수제 돈까스</p>
+          <p class="mp-desc">왕큰 수제 돈까스에 직접 만든 소스까지 완벽. 조기 소진될 수 있습니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">12,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">하루 한정 수량 · 조기 소진 가능</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 메밀 특선 -->
+    <p class="msec-title" data-reveal>메밀 특선</p>
+    <div class="mp-grid">
+
+      <div class="mp-card" data-reveal>
+        <div class="mp-thumb">
+          <img src="IMG/메밀면.jpg" alt="봉평메밀 들기름 막국수"
+               onerror="this.src='https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"><span class="mp-badge badge-daily">하루 한정</span></div>
+          <p class="mp-name">봉평메밀 들기름 막국수</p>
+          <p class="mp-desc">쫄깃 메밀국수에 들기름으로 수제 버무린 대표 막국수. 조기 소진될 수 있습니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">12,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">하루 한정 수량 · 조기 소진 가능</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mp-card" data-reveal="delay1">
+        <div class="mp-thumb">
+          <img src="IMG/해담향/황태 메밀 비빔 막국수.jpeg" alt="메밀 막국수"
+               onerror="this.src='https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&auto=format&fit=crop';this.onerror=null;">
+        </div>
+        <div class="mp-body">
+          <div class="mp-badges"><span class="mp-badge badge-season">계절 한정</span></div>
+          <p class="mp-name">메밀 막국수</p>
+          <p class="mp-desc">봉평 메밀 막국수 3종 — 황태채비빔 · 물 · 비빔. 계절의 맛을 담았습니다.</p>
+          <div class="mp-bottom">
+            <p class="mp-price">11,000원 <sub>/ 1인</sub></p>
+            <p class="mp-note">4월 ~ 10월 계절 한정 메뉴</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 안내 -->
+    <div class="menu-notice" data-reveal>
+      <h4>메뉴 안내</h4>
+      <ul>
+        <li>하루 한정 메뉴는 당일 수량 소진 시 조기 마감될 수 있습니다.</li>
+        <li>메밀 막국수는 4월부터 10월까지 계절 한정으로 운영됩니다.</li>
+        <li>메뉴 및 가격은 사정에 따라 변경될 수 있습니다.</li>
+        <li>단체 예약(7인 이상)은 전화 문의 부탁드립니다 — <a href="tel:031-647-0433" style="color:var(--accent);">031-647-0433</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <p class="footer-logo">해담향</p>
+        <p style="margin-top:0.4rem;">경기 안성시 원곡면 지문로 7-22</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html#about">소개</a>
+        <a href="menu.html">메뉴</a>
+        <a href="index.html#reservation">예약</a>
+        <a href="index.html#contact">연락처</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backTop" aria-label="맨 위로">
+    <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+  (function () {
+    var burger = document.getElementById('navBurger');
+    var navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('mobile-open');
+      burger.classList.toggle('open', open);
+    });
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('mobile-open');
+        burger.classList.remove('open');
+      });
+    });
+
+    /* SCROLL REVEAL */
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    /* BACK TO TOP */
+    var backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      backTop.classList.toggle('show', window.scrollY > 300);
+    }, { passive: true });
+    backTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+  </script>
+</body>
+</html>

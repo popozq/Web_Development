@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version:*)",
+      "Bash(npx:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(dir \"C:\\\\Users\\\\popoz\\\\Desktop\\\\Python\\\\해담향\\\\IMG\\\\해담향 로고\" /b)",
+      "Bash(python3:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -NoProfile -Command \":*)",
+      "Bash(powershell -NoProfile -Command \"Copy-Item ''C:\\\\Users\\\\popoz\\\\Desktop\\\\Python\\\\해담향\\\\IMG\\\\해담향 로고 2.zip'' ''C:\\\\Users\\\\popoz\\\\Desktop\\\\logo2.zip''; Expand-Archive -Path ''C:\\\\Users\\\\popoz\\\\Desktop\\\\logo2.zip'' -DestinationPath ''C:\\\\Users\\\\popoz\\\\Desktop\\\\logo2'' -Force; Get-ChildItem ''C:\\\\Users\\\\popoz\\\\Desktop\\\\logo2'' -Recurse | Select-Object -ExpandProperty FullName\")",
+      "Bash(git --version:*)",
+      "Bash(gh:*)",
+      "Bash(git -C \"C:/Users/popoz/Desktop/Python/해담향\" status)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

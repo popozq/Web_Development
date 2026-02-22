@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "해담향 웹사이트",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "C:\\Users\\popoz\\Desktop\\Python\\해담향"],
+      "port": 8080
+    }
+  ]
+}

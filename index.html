@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해담향 | 안성 대구탕 전문</title>
+  <meta name="description" content="안성시 해담향 — 정갈한 대구탕과 함께하는 한 끼. 예약 및 문의 환영합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #000000;
+      --white:   #ffffff;
+      --gray-50: #f5f5f7;
+      --gray-100:#e8e8ed;
+      --gray-200:#d2d2d7;
+      --gray-400:#86868b;
+      --gray-600:#515154;
+      --gray-800:#1d1d1f;
+      --accent:  #bf4e30;
+      --accent-light: rgba(191,78,48,0.12);
+      --gold:    #a07840;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --ease:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      background: var(--white);
+      color: var(--gray-800);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─────────── NAV ─────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      transition: background 0.5s var(--ease), backdrop-filter 0.5s var(--ease);
+    }
+    #nav.opaque {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    #nav.dark-bg {
+      background: transparent;
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      transition: color 0.3s var(--ease);
+    }
+    #nav.opaque .nav-logo { color: var(--gray-800); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    #nav.opaque .nav-links a { color: var(--gray-600); }
+    .nav-links a:hover { color: var(--white); opacity: 1; }
+    #nav.opaque .nav-links a:hover { color: var(--gray-800); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      transition: all 0.25s var(--ease);
+    }
+    #nav.opaque .nav-cta {
+      color: var(--gray-800);
+      border-color: rgba(0,0,0,0.2);
+    }
+    .nav-cta:hover {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+    }
+    #nav.opaque .nav-cta:hover {
+      background: var(--gray-800);
+      color: var(--white);
+      border-color: var(--gray-800);
+    }
+
+    /* 햄버거 */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-burger span {
+      width: 20px; height: 1.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
+    #nav.opaque .nav-burger span { background: var(--gray-800); }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 800px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+
+      .nav-links.mobile-open {
+        display: flex;
+        position: fixed;
+        top: 52px; left: 0; right: 0;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 0 1rem;
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .nav-links.mobile-open a {
+        color: var(--gray-800) !important;
+        font-size: 0.95rem;
+        padding: 0.85rem 2rem;
+        border-bottom: 1px solid var(--gray-100);
+        display: block;
+      }
+    }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('IMG/배경/바다1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+      transition: transform 8s var(--ease);
+    }
+    .hero.loaded .hero-bg { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.18) 0%,
+        rgba(0,0,0,0.45) 50%,
+        rgba(0,0,0,0.72) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem;
+      max-width: 720px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 1s var(--ease) 0.2s, transform 1s var(--ease) 0.2s;
+    }
+    .hero-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      margin-bottom: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.1s var(--ease) 0.35s, transform 1.1s var(--ease) 0.35s;
+    }
+    .h1-dam {
+      display: inline-block;
+      position: relative;
+      top: -0.13em;
+    }
+    .brand-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.1s var(--ease) 0.4s, transform 1.1s var(--ease) 0.4s;
+    }
+    .hero.loaded .brand-side { opacity: 1; transform: translateY(0); }
+    .brand-logo-img {
+      width: clamp(60px, 9vw, 110px);
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+    .hero-desc {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.22em;
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 1s var(--ease) 0.55s, transform 1s var(--ease) 0.55s;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.9s var(--ease) 0.75s, transform 0.9s var(--ease) 0.75s;
+    }
+    .hero.loaded .hero-eyebrow,
+    .hero.loaded .hero h1,
+    .hero.loaded .hero-desc,
+    .hero.loaded .hero-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* 애니메이션 타겟 직접 지정 */
+    .hero.loaded .hero-eyebrow { opacity: 1; transform: translateY(0); }
+    .hero.loaded h1 { opacity: 1; transform: translateY(0); }
+    .hero.loaded .hero-desc { opacity: 1; transform: translateY(0); }
+    .hero.loaded .hero-actions { opacity: 1; transform: translateY(0); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 999px;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 400;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.45);
+      transition: transform 0.25s var(--ease), background 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.7);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.5));
+      animation: scrollPulse 2s infinite var(--ease);
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ─────────── SECTION BASE ─────────── */
+    .section {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-full {
+      padding: 8rem 2rem;
+    }
+    .section-full > .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .section { padding: 4rem 1.25rem; }
+      .section-full { padding: 4rem 1.25rem; }
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .headline {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--gray-800);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .headline strong {
+      font-weight: 600;
+    }
+    .body-text {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--gray-600);
+      line-height: 1.85;
+      max-width: 54ch;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gray-200);
+      margin: 2rem 0;
+    }
+
+    /* ─────────── REVEAL ─────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-reveal="delay1"] { transition-delay: 0.1s; }
+    [data-reveal="delay2"] { transition-delay: 0.2s; }
+    [data-reveal="delay3"] { transition-delay: 0.3s; }
+    [data-reveal="delay4"] { transition-delay: 0.4s; }
+
+    /* ─────────── ABOUT (검정 섹션) ─────────── */
+    .about-section {
+      background: var(--black);
+      color: var(--white);
+    }
+    .about-section .eyebrow { color: var(--gold); }
+    .about-section .headline { color: var(--white); }
+    .about-section .body-text { color: rgba(255,255,255,0.6); }
+    .about-section .divider { background: rgba(255,255,255,0.15); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .about-img-wrap {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .about-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+    .about-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-xl);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    /* ─────────── FEATURE STRIP (3단) ─────────── */
+    .feature-strip {
+      background: var(--gray-50);
+    }
+    .feature-strip .inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 640px) {
+      .feature-strip .inner { grid-template-columns: 1fr; }
+    }
+
+    .feature-item {
+      padding: 4rem 3rem;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .feature-item { padding: 3rem 2rem; }
+    }
+    @media (max-width: 640px) {
+      .feature-item { padding: 2rem 1.25rem; flex-direction: row; align-items: flex-start; }
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .feature-item h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      letter-spacing: -0.01em;
+    }
+    .feature-item p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      line-height: 1.7;
+    }
+
+    /* ─────────── MENU ─────────── */
+    .menu-section { background: var(--white); }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--gray-100);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .menu-grid { grid-template-columns: 1fr; }
+    }
+
+    .menu-card {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      transition: background 0.25s;
+    }
+    .menu-card:hover { background: var(--gray-50); }
+
+    .menu-thumb {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--gray-100);
+    }
+    .menu-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease);
+    }
+    .menu-card:hover .menu-thumb img { transform: scale(1.05); }
+
+    .menu-body {
+      padding: 1.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .menu-name {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      letter-spacing: -0.01em;
+    }
+    .menu-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .menu-price {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+    .menu-price span {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--gray-400);
+    }
+
+    /* ─────────── INFO (검정 배경) ─────────── */
+    .info-section { background: var(--gray-800); color: var(--white); }
+    .info-section .eyebrow { color: var(--gold); }
+    .info-section .headline { color: var(--white); }
+    .info-section .divider { background: rgba(255,255,255,0.12); }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+    @media (max-width: 768px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+
+    .info-card {
+      padding: 2.5rem;
+      background: var(--gray-800);
+    }
+    .info-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .info-card p, .info-card a {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+    }
+    .info-card a:hover { color: var(--white); }
+    .map-btn-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+    .info-card .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 7px;
+      transition: opacity 0.2s, transform 0.2s;
+      width: fit-content;
+    }
+    .info-card .map-link:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
+    .map-link.kakao {
+      background: #FAE100;
+      color: #3A1D1D;
+    }
+    .map-link.naver {
+      background: #03C75A;
+      color: #ffffff;
+    }
+    .map-link-badge {
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .map-link.kakao .map-link-badge { background: #3A1D1D; color: #FAE100; }
+    .map-link.naver .map-link-badge { background: #ffffff; color: #03C75A; }
+
+    /* ─────────── RESERVATION ─────────── */
+    .reservation-section { background: var(--gray-50); }
+
+    .res-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .res-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .res-left {}
+    .res-note {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      line-height: 1.7;
+    }
+    .res-note a { color: var(--accent); }
+    .res-note a:hover { text-decoration: underline; }
+
+    .res-form {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.07);
+    }
+    @media (max-width: 520px) {
+      .res-form { padding: 1.5rem; border-radius: var(--radius-lg); }
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 0.45rem;
+      letter-spacing: 0.01em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--gray-800);
+      background: var(--gray-50);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gray-800);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+    .form-group textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--gray-800);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s var(--ease);
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--black);
+      transform: translateY(-1px);
+    }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .form-message {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+    .form-message.show { display: block; }
+    .form-message.success {
+      background: rgba(52,168,83,0.1);
+      color: #1e7e34;
+      border: 1px solid rgba(52,168,83,0.25);
+    }
+    .form-message.error {
+      background: rgba(234,67,53,0.08);
+      color: #c0392b;
+      border: 1px solid rgba(234,67,53,0.2);
+    }
+
+    /* ─────────── CONTACT ─────────── */
+    .contact-section { background: var(--white); }
+    .contact-header { text-align: center; margin-bottom: 3rem; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+      .contact-card { padding: 1.25rem 1rem; gap: 0.75rem; }
+      .contact-card-label { font-size: 0.78rem; }
+      .contact-card-sub { font-size: 0.72rem; }
+    }
+
+    .contact-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.75rem;
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      background: var(--gray-50);
+      transition: background 0.2s, border-color 0.2s, transform 0.25s var(--ease);
+      cursor: pointer;
+    }
+    .contact-card:hover {
+      background: var(--white);
+      border-color: var(--gray-200);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    }
+    .contact-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-card-icon svg {
+      width: 20px; height: 20px;
+      stroke: var(--white); fill: none; stroke-width: 1.5;
+    }
+    .contact-card-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+    .contact-card-sub {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--gray-400);
+    }
+    .contact-card-arrow {
+      width: 20px; height: 20px;
+      stroke: var(--gray-400); fill: none; stroke-width: 1.5;
+      margin-top: auto;
+    }
+
+    /* ─────────── NOTICE ─────────── */
+    .notice-section { background: var(--gray-50); }
+    .notice-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem 3rem;
+    }
+    @media (max-width: 600px) {
+      .notice-inner { padding: 2rem; }
+    }
+    .notice-inner h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      margin-bottom: 1.25rem;
+    }
+    .notice-inner ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .notice-inner li {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gray-600);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .notice-inner li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gray-400);
+    }
+
+    /* ─────────── FOOTER ─────────── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.5);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+    footer p {
+      font-size: 0.82rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ─────────── BACK TO TOP ─────────── */
+    #backTop {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s var(--ease), background 0.2s;
+    }
+    #backTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    #backTop:hover { background: var(--black); transform: translateY(-2px); }
+    #backTop svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* ─────────── MENU BADGE / VIEW ALL ─────────── */
+    .menu-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-light);
+      color: var(--accent);
+      vertical-align: middle;
+      margin-left: 0.35rem;
+    }
+    .btn-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 2rem;
+      border: 1.5px solid var(--gray-800);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      transition: background 0.2s, color 0.2s, transform 0.2s var(--ease), box-shadow 0.2s;
+    }
+    .btn-view-all:hover {
+      background: var(--gray-800);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav" class="dark-bg">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">해담향</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">소개</a></li>
+        <li><a href="menu.html">메뉴</a></li>
+        <li><a href="#info">위치 &amp; 시간</a></li>
+        <li><a href="#reservation">예약</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+      <a href="#reservation" class="nav-cta" id="navCta">예약하기</a>
+      <button class="nav-burger" id="navBurger" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">경기 안성 · 대구탕 전문</p>
+      <div class="hero-brand">
+        <h1>해<span class="h1-dam">담</span>향</h1>
+        <div class="brand-side">
+          <img src="IMG/해담향 로고/해담향 로고-01.png" alt="" class="brand-logo-img">
+        </div>
+      </div>
+      <p class="hero-desc">바다의 향기를 담아 나누는공간</p>
+      <div class="hero-actions">
+        <a href="#reservation" class="btn-primary">예약하기</a>
+        <a href="#menu" class="btn-ghost">메뉴 보기</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-full about-section" id="about">
+    <div class="inner section">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow" data-reveal>Our Story</p>
+          <h2 class="headline" data-reveal="delay1">정성으로 끓인<br><strong>한 그릇</strong></h2>
+          <div class="divider" data-reveal="delay2"></div>
+          <p class="body-text" data-reveal="delay2">해담향은 오랜 시간 정성을 다해 끓인 대구탕 한 그릇으로 손님 한 분 한 분을 맞이합니다. 깊은 국물과 부드러운 대구 살코기가 어우러진 시그니처 메뉴를 비롯해, 든든한 한 끼를 위한 다양한 메뉴를 준비해 두었습니다.</p>
+          <p class="body-text" style="margin-top:1rem;" data-reveal="delay3">편안한 공간에서 가족, 지인과 함께 해담향만의 한 끼를 경험해 보시기 바랍니다.</p>
+        </div>
+        <div class="about-img-wrap" data-reveal="delay2">
+          <img src="IMG/매장내.jpg" alt="해담향 내부">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <section class="section-full feature-strip">
+    <div class="inner">
+      <div class="feature-item" data-reveal>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        </div>
+        <div>
+          <h3>신선한 재료</h3>
+          <p>매일 엄선한 신선한 대구와 제철 재료만을 사용합니다.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="delay1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <h3>오랜 시간 끓인 육수</h3>
+          <p>정성껏 우려낸 깊은 국물 맛이 해담향의 자부심입니다.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="delay2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <h3>편안한 공간</h3>
+          <p>가족, 지인과 편안하게 식사할 수 있는 따뜻한 공간입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="section-full menu-section" id="menu">
+    <div class="inner section">
+      <div class="menu-header">
+        <p class="eyebrow" data-reveal>Menu</p>
+        <h2 class="headline" data-reveal="delay1">대표 메뉴</h2>
+        <p style="color:var(--gray-400);font-size:0.9rem;font-weight:300;margin-top:0.5rem;" data-reveal="delay2">해담향의 시그니처 메뉴를 소개합니다</p>
+      </div>
+      <div class="menu-grid" data-reveal>
+        <article class="menu-card">
+          <div class="menu-thumb">
+            <img src="IMG/해담향/대구탕.jpeg" alt="맑은 대구탕" width="400" height="300"
+                 onerror="this.src='https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&fit=crop';this.onerror=null;">
+          </div>
+          <div class="menu-body">
+            <div>
+              <p class="menu-name">맑은 대구탕 <span class="menu-badge">해담향 1등</span></p>
+              <p class="menu-desc">푸짐하고 통통한 대구살에 시원한 국물. 공기밥 포함.</p>
+            </div>
+            <p class="menu-price">15,000원 <span>/ 1인분</span></p>
+          </div>
+        </article>
+        <article class="menu-card">
+          <div class="menu-thumb">
+            <img src="IMG/해담향/황태탕.jpeg" alt="용대리 황태탕" width="400" height="300"
+                 onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop';this.onerror=null;">
+          </div>
+          <div class="menu-body">
+            <div>
+              <p class="menu-name">용대리 황태탕 <span class="menu-badge">사장님 추천</span></p>
+              <p class="menu-desc">황태살 가득한 뽀얀 국물, 해장으로 1등!! 공기밥 포함.</p>
+            </div>
+            <p class="menu-price">14,000원 <span>/ 1인분</span></p>
+          </div>
+        </article>
+        <article class="menu-card">
+          <div class="menu-thumb">
+            <img src="IMG/해담향/황태구이.jpeg" alt="용대리 황태구이" width="400" height="300"
+                 onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&auto=format&fit=crop';this.onerror=null;">
+          </div>
+          <div class="menu-body">
+            <div>
+              <p class="menu-name">용대리 황태구이</p>
+              <p class="menu-desc">토실토실 황태살에 막걸리가 절로 땡기는 황태구이. 공기밥 별도.</p>
+            </div>
+            <p class="menu-price">15,000원 <span>/ 1인분</span></p>
+          </div>
+        </article>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;" data-reveal="delay1">
+        <a href="menu.html" class="btn-view-all">전체 메뉴 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section class="section-full info-section" id="info">
+    <div class="inner section">
+      <p class="eyebrow" data-reveal>Visit Us</p>
+      <h2 class="headline" data-reveal="delay1">찾아오시는 길<br><strong>& 영업시간</strong></h2>
+      <div class="info-grid" data-reveal="delay2">
+        <div class="info-card">
+          <p class="info-label">주소</p>
+          <p>경기 안성시 원곡면<br>지문로 7-22</p>
+          <div class="map-btn-wrap">
+            <a href="https://place.map.kakao.com/569157356" class="map-link kakao" target="_blank" rel="noopener">
+              <span class="map-link-badge">K</span>
+              카카오맵으로 열기
+            </a>
+            <a href="https://map.naver.com/p/entry/place/2039533292?lng=127.1299619&lat=37.0418779&placePath=/home&entry=plt&searchType=place&c=15.00,0,0,0,dh" class="map-link naver" target="_blank" rel="noopener">
+              <span class="map-link-badge">N</span>
+              네이버지도로 열기
+            </a>
+          </div>
+        </div>
+        <div class="info-card">
+          <p class="info-label">전화</p>
+          <p><a href="tel:031-647-0433">031-647-0433</a></p>
+        </div>
+        <div class="info-card">
+          <p class="info-label">영업시간</p>
+          <p>매일 10:00 – 21:00<br><span style="opacity:0.55;font-size:0.85rem;">라스트오더 20:00</span><br><br>연중무휴</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION -->
+  <section class="section-full reservation-section" id="reservation">
+    <div class="inner section">
+      <div class="res-wrap">
+        <div class="res-left">
+          <p class="eyebrow" data-reveal>Reservation</p>
+          <h2 class="headline" data-reveal="delay1">예약하기</h2>
+          <div class="divider" data-reveal="delay2"></div>
+          <p class="body-text" data-reveal="delay2">날짜·시간·인원을 알려주시면 확인 후 연락드립니다. 예약 확정은 전화로 안내드립니다.</p>
+          <p class="res-note" data-reveal="delay3">
+            빠른 예약이 필요하시면 <a href="tel:031-647-0433">전화</a> 또는
+            <a href="#">카카오톡 채널</a>을 이용해 주세요.
+          </p>
+        </div>
+        <div class="res-form" data-reveal="delay2">
+          <!-- Formspree 연동: action의 YOUR_FORM_ID를 본인 Formspree 폼 ID로 교체하세요 -->
+          <form id="resForm" action="https://formspree.io/f/YOUR_FORM_ID" method="post">
+            <input type="hidden" name="_subject" id="formSubject" value="[해담향] 웹사이트 예약 요청">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">이름 *</label>
+                <input type="text" id="fname" name="name" required placeholder="홍길동">
+              </div>
+              <div class="form-group">
+                <label for="fphone">연락처 *</label>
+                <input type="tel" id="fphone" name="phone" required placeholder="010-0000-0000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fdate">희망 날짜 *</label>
+                <input type="date" id="fdate" name="date" required>
+              </div>
+              <div class="form-group">
+                <label for="ftime">희망 시간 *</label>
+                <input type="time" id="ftime" name="time" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fguests">인원 *</label>
+              <select id="fguests" name="guests" required>
+                <option value="">선택하세요</option>
+                <option value="1">1명</option>
+                <option value="2">2명</option>
+                <option value="3">3명</option>
+                <option value="4">4명</option>
+                <option value="5">5명</option>
+                <option value="6">6명 이상</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fmemo">요청사항</label>
+              <textarea id="fmemo" name="memo" placeholder="좌석 선호, 알레르기, 기타 요청사항"></textarea>
+            </div>
+            <button type="submit" class="btn-submit" id="resSubmit">예약 요청 보내기</button>
+            <div class="form-message" id="resMessage" role="alert"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-full contact-section" id="contact">
+    <div class="inner section">
+      <div class="contact-header">
+        <p class="eyebrow" data-reveal>Contact</p>
+        <h2 class="headline" data-reveal="delay1">연락하기</h2>
+      </div>
+      <div class="contact-grid" data-reveal="delay2">
+        <a href="tel:031-647-0433" class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <p class="contact-card-label">전화 걸기</p>
+            <p class="contact-card-sub">031-647-0433</p>
+          </div>
+          <svg class="contact-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="contact-card" target="_blank" rel="noopener">
+          <div class="contact-card-icon" style="background:#FAE100;">
+            <svg viewBox="0 0 24 24" style="stroke:#3A1D1D;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div>
+            <p class="contact-card-label">카카오톡 채널</p>
+            <p class="contact-card-sub">빠른 문의</p>
+          </div>
+          <svg class="contact-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="contact-card" target="_blank" rel="noopener">
+          <div class="contact-card-icon" style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
+            <svg viewBox="0 0 24 24" style="stroke:white;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div>
+            <p class="contact-card-label">인스타그램</p>
+            <p class="contact-card-sub">@haedamhyang</p>
+          </div>
+          <svg class="contact-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="contact-card" target="_blank" rel="noopener">
+          <div class="contact-card-icon" style="background:#03C75A;">
+            <svg viewBox="0 0 24 24" style="stroke:white;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <p class="contact-card-label">네이버 블로그</p>
+            <p class="contact-card-sub">소식 &amp; 이벤트</p>
+          </div>
+          <svg class="contact-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTICE -->
+  <section class="section-full notice-section">
+    <div class="inner section">
+      <div class="notice-inner" data-reveal>
+        <h3>안내사항</h3>
+        <ul>
+          <li>휴무일 및 영업시간은 위 '위치 &amp; 영업시간'을 참고해 주세요.</li>
+          <li>단체 예약(7인 이상)은 전화 문의를 부탁드립니다.</li>
+          <li>메뉴 및 가격은 사정에 따라 변경될 수 있습니다.</li>
+          <li>예약 확정은 연락처로 개별 안내드립니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <p class="footer-logo">해담향</p>
+        <p style="margin-top:0.4rem;">경기 안성시 원곡면 지문로 7-22</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">소개</a>
+        <a href="#menu">메뉴</a>
+        <a href="#reservation">예약</a>
+        <a href="#contact">연락처</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backTop" aria-label="맨 위로">
+    <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+  (function () {
+    /* ── NAV ── */
+    var nav = document.getElementById('nav');
+    var burger = document.getElementById('navBurger');
+    var navLinks = document.getElementById('navLinks');
+
+    function updateNav() {
+      var hero = document.getElementById('hero');
+      var heroBottom = hero ? hero.offsetHeight : 0;
+      var scrolled = window.scrollY > 40;
+      var pastHero = window.scrollY > heroBottom - 80;
+
+      if (scrolled) {
+        nav.classList.add('opaque');
+        nav.classList.remove('dark-bg');
+      } else {
+        nav.classList.remove('opaque');
+        nav.classList.add('dark-bg');
+      }
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    burger.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('mobile-open');
+      burger.classList.toggle('open', open);
+    });
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('mobile-open');
+        burger.classList.remove('open');
+      });
+    });
+
+    /* ── HERO LOAD ANIMATION ── */
+    var hero = document.getElementById('hero');
+    requestAnimationFrame(function () {
+      setTimeout(function () { hero.classList.add('loaded'); }, 80);
+    });
+
+    /* ── SCROLL REVEAL ── */
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    /* ── BACK TO TOP ── */
+    var backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      backTop.classList.toggle('show', window.scrollY > 500);
+    }, { passive: true });
+    backTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── RESERVATION FORM ── */
+    var form = document.getElementById('resForm');
+    var msg = document.getElementById('resMessage');
+    var btn = document.getElementById('resSubmit');
+    var subj = document.getElementById('formSubject');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
+        msg.className = 'form-message show error';
+        msg.textContent = '예약 폼이 아직 설정되지 않았습니다. 전화로 예약해 주세요.';
+        return;
+      }
+      var name = document.getElementById('fname').value;
+      var date = document.getElementById('fdate').value;
+      if (subj) subj.value = '[해담향] 예약 요청 – ' + name + ' (' + date + ')';
+
+      btn.disabled = true;
+      btn.textContent = '전송 중…';
+      msg.className = 'form-message';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (r) {
+          if (r.ok) {
+            msg.className = 'form-message show success';
+            msg.textContent = '예약 요청이 접수되었습니다. 입력하신 연락처로 곧 연락드리겠습니다.';
+            form.reset();
+          } else { throw new Error(); }
+        })
+        .catch(function () {
+          msg.className = 'form-message show error';
+          msg.textContent = '전송에 실패했습니다. 전화 또는 카카오톡으로 문의해 주세요.';
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = '예약 요청 보내기';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# 시스템
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 임시 파일
+*.tmp
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# 추출된 임시 폴더
+IMG/logo2_extracted/
+IMG/logo2/
+C:/Users/popoz/Desktop/logo2*
