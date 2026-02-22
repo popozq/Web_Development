@@ -47,7 +47,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      height: 52px;
+      height: 68px;
       display: flex;
       align-items: center;
       transition: background 0.5s var(--ease), backdrop-filter 0.5s var(--ease);
@@ -72,7 +72,7 @@
     }
     .nav-logo {
       font-family: 'Noto Serif KR', serif;
-      font-size: 1.1rem;
+      font-size: 1.6rem;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--white);
@@ -86,7 +86,7 @@
       gap: 2rem;
     }
     .nav-links a {
-      font-size: 0.8rem;
+      font-size: 1.1rem;
       font-weight: 400;
       color: rgba(255,255,255,0.85);
       letter-spacing: 0.01em;
@@ -97,11 +97,11 @@
     #nav.opaque .nav-links a:hover { color: var(--gray-800); }
 
     .nav-cta {
-      font-size: 0.8rem;
+      font-size: 1.1rem;
       font-weight: 500;
       color: rgba(255,255,255,0.85);
       border: 1px solid rgba(255,255,255,0.4);
-      padding: 0.35rem 1rem;
+      padding: 0.5rem 1.4rem;
       border-radius: 999px;
       transition: all 0.25s var(--ease);
     }
@@ -209,9 +209,9 @@
       max-width: 720px;
     }
     .hero-eyebrow {
-      font-size: 0.72rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.7);
       margin-bottom: 1.25rem;
@@ -336,20 +336,48 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.55);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      gap: 0.75rem;
+      animation: scrollFadeIn 1.2s var(--ease) 1.8s both;
     }
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.5));
-      animation: scrollPulse 2s infinite var(--ease);
+    @keyframes scrollFadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
-      50% { opacity: 1; transform: scaleY(1); }
+    .scroll-mouse {
+      width: 28px;
+      height: 46px;
+      border: 2px solid rgba(255,255,255,0.55);
+      border-radius: 14px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+      transition: border-color 0.3s;
+    }
+    .scroll-mouse:hover { border-color: rgba(255,255,255,0.9); }
+    .scroll-wheel {
+      width: 3px;
+      height: 8px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 2px;
+      animation: scrollWheel 2s ease-in-out infinite;
+    }
+    @keyframes scrollWheel {
+      0%   { opacity: 1;   transform: translateY(0); }
+      60%  { opacity: 0.2; transform: translateY(14px); }
+      100% { opacity: 0;   transform: translateY(14px); }
+    }
+    .scroll-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      animation: scrollBlink 2s ease-in-out infinite;
+    }
+    @keyframes scrollBlink {
+      0%, 100% { opacity: 0.5; }
+      50%       { opacity: 0.9; }
     }
 
     /* ─────────── SECTION BASE ─────────── */
@@ -371,7 +399,7 @@
     }
 
     .eyebrow {
-      font-size: 0.72rem;
+      font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -391,10 +419,10 @@
       font-weight: 600;
     }
     .body-text {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 300;
       color: var(--gray-600);
-      line-height: 1.85;
+      line-height: 1.9;
       max-width: 54ch;
     }
     .divider {
@@ -595,9 +623,9 @@
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.1fr 1fr 1.1fr;
       gap: 1.5px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
       border-radius: var(--radius-xl);
       overflow: hidden;
       margin-top: 3rem;
@@ -607,60 +635,184 @@
     }
 
     .info-card {
-      padding: 2.5rem;
+      padding: 3.5rem;
       background: var(--gray-800);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
     .info-label {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .info-card p, .info-card a {
-      font-size: 1rem;
+    .info-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+    .info-card p {
+      font-size: 1.05rem;
       font-weight: 300;
       color: rgba(255,255,255,0.75);
-      line-height: 1.75;
+      line-height: 1.8;
     }
+    .info-card a { color: rgba(255,255,255,0.75); }
     .info-card a:hover { color: var(--white); }
+
+    .info-addr-main {
+      font-size: 1.25rem !important;
+      font-weight: 400 !important;
+      color: var(--white) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0.5rem;
+    }
+    .info-addr-sub {
+      font-size: 0.9rem !important;
+      color: rgba(255,255,255,0.45) !important;
+      margin-bottom: 1.75rem;
+    }
+    .info-addr-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .info-addr-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+    }
+    .info-addr-meta svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
     .map-btn-wrap {
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      margin-top: 1rem;
+      gap: 0.6rem;
+      margin-top: auto;
     }
     .info-card .map-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
+      gap: 0.55rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      padding: 0.45rem 0.85rem;
-      border-radius: 7px;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
       transition: opacity 0.2s, transform 0.2s;
-      width: fit-content;
+      width: 100%;
+      justify-content: center;
     }
-    .info-card .map-link:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
-    .map-link.kakao {
-      background: #FAE100;
-      color: #3A1D1D;
-    }
-    .map-link.naver {
-      background: #03C75A;
-      color: #ffffff;
-    }
+    .info-card .map-link:hover { opacity: 0.88; transform: translateY(-1px); text-decoration: none; }
+    .map-link.kakao { background: #FAE100; color: #3A1D1D; }
+    .map-link.naver { background: #03C75A; color: #ffffff; }
     .map-link-badge {
-      width: 18px; height: 18px;
+      width: 20px; height: 20px;
       border-radius: 4px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 800;
       flex-shrink: 0;
     }
     .map-link.kakao .map-link-badge { background: #3A1D1D; color: #FAE100; }
     .map-link.naver .map-link-badge { background: #ffffff; color: #03C75A; }
+
+    /* 전화 카드 */
+    .info-phone-number {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .info-phone-sub {
+      font-size: 0.9rem !important;
+      color: rgba(255,255,255,0.45) !important;
+      margin-bottom: 2rem;
+    }
+    .info-call-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      transition: opacity 0.2s, transform 0.15s;
+      width: 100%;
+    }
+    .info-call-btn:hover { opacity: 0.88; transform: translateY(-1px); color: var(--white); }
+    .info-call-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; flex-shrink: 0; }
+    .info-phone-note {
+      font-size: 0.85rem !important;
+      color: rgba(255,255,255,0.4) !important;
+      line-height: 1.65 !important;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.25rem;
+      margin-top: auto;
+    }
+
+    /* 영업시간 카드 */
+    .hours-table { margin-bottom: 2rem; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .hours-row:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .hours-key {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+    }
+    .hours-val {
+      font-size: 1rem;
+      color: var(--white);
+      font-weight: 400;
+      text-align: right;
+    }
+    .hours-val.accent { color: var(--gold); }
+    .hours-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(191,78,48,0.18);
+      color: #e8856a;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-top: 1.5rem;
+    }
+    .hours-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #e8856a;
+    }
 
     /* ─────────── RESERVATION ─────────── */
     .reservation-section { background: var(--gray-50); }
@@ -1023,7 +1175,10 @@
       </div>
     </div>
     <div class="hero-scroll">
-      <div class="scroll-line"></div>
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span class="scroll-label">Scroll</span>
     </div>
   </section>
 
@@ -1139,28 +1294,79 @@
       <p class="eyebrow" data-reveal>Visit Us</p>
       <h2 class="headline" data-reveal="delay1">찾아오시는 길<br><strong>& 영업시간</strong></h2>
       <div class="info-grid" data-reveal="delay2">
+
+        <!-- 주소 -->
         <div class="info-card">
-          <p class="info-label">주소</p>
-          <p>경기 안성시 원곡면<br>지문로 7-22</p>
+          <p class="info-label">Location</p>
+          <p class="info-addr-main">경기 안성시 원곡면<br>지문로 7-22</p>
+          <p class="info-addr-sub">7-22 Jimun-ro, Wongok-myeon,<br>Anseong-si, Gyeonggi-do</p>
+          <div class="info-addr-meta">
+            <span>
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              주차 가능 (건물 전면 무료)
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              영업시간 내 방문 환영
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              안성 IC 기준 약 15분
+            </span>
+          </div>
           <div class="map-btn-wrap">
             <a href="https://place.map.kakao.com/569157356" class="map-link kakao" target="_blank" rel="noopener">
-              <span class="map-link-badge">K</span>
-              카카오맵으로 열기
+              <span class="map-link-badge">K</span>카카오맵으로 열기
             </a>
             <a href="https://map.naver.com/p/entry/place/2039533292?lng=127.1299619&lat=37.0418779&placePath=/home&entry=plt&searchType=place&c=15.00,0,0,0,dh" class="map-link naver" target="_blank" rel="noopener">
-              <span class="map-link-badge">N</span>
-              네이버지도로 열기
+              <span class="map-link-badge">N</span>네이버지도로 열기
             </a>
           </div>
         </div>
-        <div class="info-card">
-          <p class="info-label">전화</p>
-          <p><a href="tel:031-647-0433">031-647-0433</a></p>
+
+        <!-- 전화 -->
+        <div class="info-card" style="text-align:center; justify-content:center;">
+          <p class="info-label" style="justify-content:center;">Contact</p>
+          <p class="info-phone-number">031-647-0433</p>
+          <p class="info-phone-sub">예약 및 문의 환영합니다</p>
+          <a href="tel:031-647-0433" class="info-call-btn">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            지금 전화하기
+          </a>
+          <p class="info-phone-note">
+            전화 예약 시 빠른 확정이 가능합니다.<br>
+            운영시간 내 언제든 연락 주세요.<br>
+            (10:00 – 21:00, 연중무휴)
+          </p>
         </div>
+
+        <!-- 영업시간 -->
         <div class="info-card">
-          <p class="info-label">영업시간</p>
-          <p>매일 10:00 – 21:00<br><span style="opacity:0.55;font-size:0.85rem;">라스트오더 20:00</span><br><br>연중무휴</p>
+          <p class="info-label">Hours</p>
+          <div class="hours-table">
+            <div class="hours-row">
+              <span class="hours-key">영업 시간</span>
+              <span class="hours-val">10:00 – 21:00</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-key">라스트 오더</span>
+              <span class="hours-val accent">20:00</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-key">휴무</span>
+              <span class="hours-val">연중무휴</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-key">주말·공휴일</span>
+              <span class="hours-val">동일 운영</span>
+            </div>
+          </div>
+          <span class="hours-badge">현재 정상 영업 중</span>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-top:1.5rem;line-height:1.65;">
+            명절 등 특수 상황에 의한 임시 휴무 시<br>사전 공지를 통해 안내드립니다.
+          </p>
         </div>
+
       </div>
     </div>
   </section>
